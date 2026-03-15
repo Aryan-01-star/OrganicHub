@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganicHub - Smart Farming Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">🌾</span>
+                <span class="logo-text">FarmGuru</span>
+            </a>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" class="active" data-i18n="nav.home"><i class="fas fa-home"></i><span>Home</span></a></li>
+            <li><a href="#weather" data-i18n="nav.weather"><i class="fas fa-cloud-sun"></i><span>Weather</span></a></li>
+            <li><a href="#crops" data-i18n="nav.crops"><i class="fas fa-seedling"></i><span>Crops</span></a></li>
+            <li><a href="#fertilizer" data-i18n="nav.fertilizer"><i class="fas fa-flask"></i><span>Fertilizer</span></a></li>
+            <li><a href="#pest" data-i18n="nav.pest"><i class="fas fa-bug"></i><span>Pest Detection</span></a></li>
+            <li><a href="#market" data-i18n="nav.market"><i class="fas fa-chart-line"></i><span>Market</span></a></li>
+            <li><a href="#community" data-i18n="nav.community"><i class="fas fa-users"></i><span>Community</span></a></li>
+            <li><a href="#sellers" data-i18n="nav.sellers"><i class="fas fa-map-marker-alt"></i><span>Sellers</span></a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <select id="langSelector" class="lang-selector" aria-label="Language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="mr">मराठी</option>
+                <option value="te">తెలుగు</option>
+                <option value="ta">தமிழ்</option>
+                <option value="kn">ಕನ್ನಡ</option>
+                <option value="pa">ਪੰਜਾਬੀ</option>
+                <option value="bn">বাংলা</option>
+            </select>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Top Bar -->
+    <header class="mobile-topbar" id="mobileTopbar">
+        <a href="#" class="nav-logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">FarmGuru</span>
+        </a>
+        <div class="mobile-topbar-actions">
+            <select id="langSelectorMobile" class="lang-selector" aria-label="Language">
+                <option value="en">EN</option>
+                <option value="hi">हि</option>
+                <option value="mr">म</option>
+                <option value="te">తె</option>
+                <option value="ta">த</option>
+                <option value="kn">ಕ</option>
+                <option value="pa">ਪ</option>
+                <option value="bn">ব</option>
+            </select>
+            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#hero" class="mobile-nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#weather" class="mobile-nav-item"><i class="fas fa-cloud-sun"></i><span>Weather</span></a>
+        <a href="#crops" class="mobile-nav-item"><i class="fas fa-seedling"></i><span>Crops</span></a>
+        <a href="#market" class="mobile-nav-item"><i class="fas fa-chart-line"></i><span>Market</span></a>
+        <button class="mobile-nav-item mobile-nav-more" id="mobileMoreBtn"><i class="fas fa-ellipsis-h"></i><span>More</span></button>
+    </nav>
+
+    <!-- Mobile More Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+        <div class="mobile-drawer-content">
+            <div class="mobile-drawer-header">
+                <span>More Sections</span>
+                <button id="mobileDrawerClose"><i class="fas fa-times"></i></button>
+            </div>
+            <a href="#fertilizer" class="mobile-drawer-link"><i class="fas fa-flask"></i>Fertilizer</a>
+            <a href="#pest" class="mobile-drawer-link"><i class="fas fa-bug"></i>Pest Detection</a>
+            <a href="#community" class="mobile-drawer-link"><i class="fas fa-users"></i>Community</a>
+            <a href="#sellers" class="mobile-drawer-link"><i class="fas fa-map-marker-alt"></i>Sellers</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1 class="hero-title" data-i18n="hero.title1">FARMING</h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">
+                    FarmGuru helps you figure out what to grow, when to water, and how to get the best price &mdash; all in one place. Works in 8 Indian languages.
+                </p>
+                <div class="hero-actions">
+                    <a href="#crops" class="btn-outline" data-i18n="hero.cta2">LEARN MORE</a>
+                    <a href="#weather" class="btn-outline" data-i18n="hero.cta1">INFO</a>
+                </div>
+                <div class="hero-search">
+                    <input type="text" placeholder="Search crops, weather, tips..." class="hero-search-input">
+                    <button class="hero-search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <img src="assets/farmer-illustration.png" alt="Farmers working in the field" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- What you can do here -->
+    <section class="what-section">
+        <div class="container">
+            <h2 class="what-heading" data-i18n="features.heading">What can FarmGuru do for you?</h2>
+            <div class="what-grid">
+                <a href="#weather" class="what-item">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span data-i18n="features.weather.title">Weather Forecasting</span>
+                </a>
+                <a href="#crops" class="what-item">
+                    <i class="fas fa-seedling"></i>
+                    <span data-i18n="features.crop.title">Crop Recommendations</span>
+                </a>
+                <a href="#fertilizer" class="what-item">
+                    <i class="fas fa-flask"></i>
+                    <span data-i18n="features.fertilizer.title">Fertilizer Optimization</span>
+                </a>
+                <a href="#pest" class="what-item">
+                    <i class="fas fa-bug"></i>
+                    <span data-i18n="features.pest.title">Pest Detection</span>
+                </a>
+                <a href="#market" class="what-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span data-i18n="features.market.title">Market Insights</span>
+                </a>
+                <a href="#community" class="what-item">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="features.community.title">Farmer Community</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section id="weather" class="section">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-cloud-sun"></i> <span data-i18n="weather.title">Weather Forecasting</span></h2>
+            <div class="weather-dashboard">
+                <div class="weather-main-card" id="weatherMainCard">
+                    <div class="weather-loading" id="weatherLoading">
+                        <div class="spinner"></div>
+                        <p data-i18n="weather.loading">Fetching weather data...</p>
+                    </div>
+                    <div class="weather-content" id="weatherContent" style="display:none">
+                        <div class="weather-top">
+                            <div class="weather-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="locationName">--</span>
+                            </div>
+                            <div class="weather-date" id="weatherDate">--</div>
+                        </div>
+                        <div class="weather-body">
+                            <div class="weather-temp-group">
+                                <img id="weatherIcon" src="" alt="Weather" class="weather-icon-large">
+                                <div class="weather-temp">
+                                    <span class="temp-main" id="tempMain">--°</span>
+                                    <span class="temp-condition" id="tempCondition">--</span>
+                                    <span class="temp-range" id="tempRange">H: --° L: --°</span>
+                                </div>
+                            </div>
+                            <div class="weather-details-grid">
+                                <div class="weather-detail">
+                                    <i class="fas fa-wind"></i>
+                                    <span class="detail-label" data-i18n="weather.wind">Wind</span>
+                                    <span class="detail-value" id="windSpeed">-- km/h</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <i class="fas fa-tint"></i>
+                                    <span class="detail-label" data-i18n="weather.humidity">Humidity</span>
+                                    <span class="detail-value" id="humidity">--%</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <i class="fas fa-cloud-rain"></i>
+                                    <span class="detail-label" data-i18n="weather.rain">Rain Chance</span>
+                                    <span class="detail-value" id="rainChance">--%</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="detail-label" data-i18n="weather.visibility">Visibility</span>
+                                    <span class="detail-value" id="visibility">-- km</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <i class="fas fa-compress-arrows-alt"></i>
+                                    <span class="detail-label" data-i18n="weather.pressure">Pressure</span>
+                                    <span class="detail-value" id="pressure">-- mb</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <i class="fas fa-sun"></i>
+                                    <span class="detail-label" data-i18n="weather.uv">UV Index</span>
+                                    <span class="detail-value" id="uvIndex">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weather-hourly" id="hourlyForecast"></div>
+                    </div>
+                </div>
+                <div class="weather-advisory" id="weatherAdvisory">
+                    <h3><i class="fas fa-lightbulb"></i> <span data-i18n="weather.advisory">Farming Advisory</span></h3>
+                    <div id="advisoryContent">
+                        <p data-i18n="weather.advisoryDefault">Weather data will generate farming advisories here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crop Recommendations Section -->
+    <section id="crops" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-seedling"></i> <span data-i18n="crops.title">Crop Recommendations</span></h2>
+            <p class="section-desc" data-i18n="crops.subtitle">Tell us about your soil and climate &mdash; we'll suggest what to grow.</p>
+            <div class="crop-interface">
+                <div class="crop-inputs">
+                    <p class="input-section-label" data-i18n="crops.soilNutrients" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:-8px">Soil Nutrients (NPK Ratio)</p>
+                    <div class="input-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+                        <div class="input-group">
+                            <label data-i18n="crops.nitrogen">N (Nitrogen)</label>
+                            <input type="number" id="cropN" class="form-input" value="40" min="0" max="140" step="1" placeholder="0-140">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="crops.phosphorus">P (Phosphorus)</label>
+                            <input type="number" id="cropP" class="form-input" value="50" min="0" max="145" step="1" placeholder="0-145">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="crops.potassium">K (Potassium)</label>
+                            <input type="number" id="cropK" class="form-input" value="50" min="0" max="205" step="1" placeholder="0-205">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="crops.phLabel">Soil pH</label>
+                        <input type="number" id="cropPH" class="form-input" value="6.5" min="3" max="10" step="0.1" placeholder="3.0 - 10.0">
+                    </div>
+                    <p class="input-section-label" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:-8px;margin-top:4px" data-i18n="crops.climate">Climate Conditions</p>
+                    <div class="input-row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div class="input-group">
+                            <label data-i18n="crops.tempLabel">Temperature (°C)</label>
+                            <input type="number" id="cropTemp" class="form-input" value="25" min="0" max="50" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="crops.humidityLabel">Humidity (%)</label>
+                            <input type="number" id="cropHumidity" class="form-input" value="70" min="10" max="100" step="1">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="crops.rainfallLabel">Rainfall (mm)</label>
+                        <input type="number" id="cropRainfall" class="form-input" value="150" min="0" max="500" step="5" placeholder="Annual avg mm">
+                    </div>
+                    <div class="auto-fill-note" style="display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text-muted);margin-top:-4px">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-i18n="crops.autoFillNote">Temperature & humidity are auto-filled from weather data when available</span>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="getCropRecommendation" data-i18n="crops.getRecommendation">
+                        <i class="fas fa-magic"></i> Get Recommendations
+                    </button>
+                    <p class="dataset-credit" style="font-size:0.688rem;color:var(--text-muted);text-align:center;margin-top:-4px">
+                        Dataset: <a href="https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset" target="_blank" rel="noopener" style="color:var(--accent)">Kaggle Crop Recommendation</a> (22 crops, 2200 samples)
+                    </p>
+                </div>
+                <div class="crop-results" id="cropResults">
+                    <div class="crop-placeholder">
+                        <i class="fas fa-seedling"></i>
+                        <p data-i18n="crops.placeholder">Select your conditions and click to get AI-powered crop recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fertilizer Section -->
+    <section id="fertilizer" class="section">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-flask"></i> <span data-i18n="fertilizer.title">Fertilizer Optimizer</span></h2>
+            <p class="section-desc" data-i18n="fertilizer.subtitle">Pick your crop and growth stage &mdash; get a clear fertilizer plan.</p>
+            <div class="fertilizer-interface">
+                <div class="fertilizer-form">
+                    <div class="input-group">
+                        <label data-i18n="fertilizer.cropLabel">Current Crop</label>
+                        <select id="fertilizerCrop" class="form-select">
+                            <option value="rice">Rice</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="corn">Corn / Maize</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="sugarcane">Sugarcane</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="potato">Potato</option>
+                            <option value="onion">Onion</option>
+                            <option value="soybean">Soybean</option>
+                            <option value="groundnut">Groundnut</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="fertilizer.stageLabel">Growth Stage</label>
+                        <select id="growthStage" class="form-select">
+                            <option value="seedling" data-i18n="fertilizer.stage.seedling">Seedling</option>
+                            <option value="vegetative" data-i18n="fertilizer.stage.vegetative">Vegetative</option>
+                            <option value="flowering" data-i18n="fertilizer.stage.flowering">Flowering</option>
+                            <option value="fruiting" data-i18n="fertilizer.stage.fruiting">Fruiting</option>
+                            <option value="harvest" data-i18n="fertilizer.stage.harvest">Near Harvest</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="fertilizer.methodLabel">Farming Method</label>
+                        <select id="farmingMethod" class="form-select">
+                            <option value="organic" data-i18n="fertilizer.method.organic">Organic</option>
+                            <option value="conventional" data-i18n="fertilizer.method.conventional">Conventional</option>
+                            <option value="integrated" data-i18n="fertilizer.method.integrated">Integrated</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="getFertilizer" data-i18n="fertilizer.getRecommendation">
+                        <i class="fas fa-flask"></i> Get Fertilizer Plan
+                    </button>
+                </div>
+                <div class="fertilizer-results" id="fertilizerResults">
+                    <div class="crop-placeholder">
+                        <i class="fas fa-flask"></i>
+                        <p data-i18n="fertilizer.placeholder">Select crop details to get optimized fertilizer recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pest Detection Section -->
+    <section id="pest" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-bug"></i> <span data-i18n="pest.title">Pest Detection & Control</span></h2>
+            <p class="section-desc" data-i18n="pest.subtitle">Upload a photo or describe what you see &mdash; we'll identify the problem and suggest fixes.</p>
+            <div class="pest-interface">
+                <div class="pest-upload">
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p data-i18n="pest.uploadText">Drag & drop or click to upload crop image</p>
+                        <span class="upload-hint" data-i18n="pest.uploadHint">Supports JPG, PNG (Max 5MB)</span>
+                        <input type="file" id="pestImage" accept="image/*" hidden>
+                    </div>
+                    <div class="upload-preview" id="uploadPreview" style="display:none">
+                        <img id="previewImage" src="" alt="Preview">
+                        <button class="btn btn-sm" id="removeImage"><i class="fas fa-times"></i></button>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="analyzePest" data-i18n="pest.analyze">
+                        <i class="fas fa-search"></i> Analyze Image
+                    </button>
+                    <p class="pest-or" data-i18n="pest.or">— OR describe symptoms below —</p>
+                    <div class="input-group">
+                        <input type="text" id="pestSymptoms" class="form-input" data-i18n-placeholder="pest.symptomPlaceholder" placeholder="e.g., Yellow spots on leaves, wilting stems">
+                    </div>
+                    <button class="btn btn-outline btn-full" id="analyzeSymptomsBtn" data-i18n="pest.analyzeSymptoms">
+                        <i class="fas fa-stethoscope"></i> Diagnose from Symptoms
+                    </button>
+                </div>
+                <div class="pest-results" id="pestResults">
+                    <div class="crop-placeholder">
+                        <i class="fas fa-bug"></i>
+                        <p data-i18n="pest.placeholder">Upload an image or describe symptoms to detect pests</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Insights Section -->
+    <section id="market" class="section">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-chart-line"></i> <span data-i18n="market.title">Market Insights</span></h2>
+            <p class="section-desc" data-i18n="market.subtitle">Check what your crop is selling for before you head to the mandi.</p>
+            <div class="market-dashboard">
+                <div class="market-filters">
+                    <select id="marketCommodity" class="form-select">
+                        <option value="rice">Rice</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="corn">Corn / Maize</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="sugarcane">Sugarcane</option>
+                        <option value="tomato">Tomato</option>
+                        <option value="potato">Potato</option>
+                        <option value="onion">Onion</option>
+                        <option value="soybean">Soybean</option>
+                    </select>
+                    <select id="marketRegion" class="form-select">
+                        <option value="local" data-i18n="market.region.local">Local Market</option>
+                        <option value="state" data-i18n="market.region.state">State Level</option>
+                        <option value="national" data-i18n="market.region.national">National</option>
+                    </select>
+                </div>
+                <div class="market-cards">
+                    <div class="market-price-card">
+                        <span class="price-label" data-i18n="market.currentPrice">Current Price</span>
+                        <span class="price-value" id="currentPrice">₹2,450</span>
+                        <span class="price-unit" data-i18n="market.perQuintal">per quintal</span>
+                        <span class="price-change positive" id="priceChange">+3.2%</span>
+                    </div>
+                    <div class="market-price-card">
+                        <span class="price-label" data-i18n="market.weekAvg">7-Day Average</span>
+                        <span class="price-value" id="weekAvg">₹2,380</span>
+                        <span class="price-unit" data-i18n="market.perQuintal">per quintal</span>
+                    </div>
+                    <div class="market-price-card">
+                        <span class="price-label" data-i18n="market.monthAvg">30-Day Average</span>
+                        <span class="price-value" id="monthAvg">₹2,320</span>
+                        <span class="price-unit" data-i18n="market.perQuintal">per quintal</span>
+                    </div>
+                    <div class="market-price-card">
+                        <span class="price-label" data-i18n="market.demand">Demand Trend</span>
+                        <span class="price-value demand-up" id="demandTrend"><i class="fas fa-arrow-up"></i> High</span>
+                        <span class="price-unit" data-i18n="market.recommendation">Good time to sell</span>
+                    </div>
+                </div>
+                <div class="market-chart" id="marketChart">
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <div class="market-table">
+                    <h3 data-i18n="market.nearbyMandis">Nearby Mandis / Markets</h3>
+                    <div class="table-responsive">
+                        <table id="mandiTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="market.th.mandi">Mandi</th>
+                                    <th data-i18n="market.th.commodity">Commodity</th>
+                                    <th data-i18n="market.th.minPrice">Min Price</th>
+                                    <th data-i18n="market.th.maxPrice">Max Price</th>
+                                    <th data-i18n="market.th.modal">Modal Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mandiTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-users"></i> <span data-i18n="community.title">Farmer Community</span></h2>
+            <p class="section-desc" data-i18n="community.subtitle">Talk to other farmers. Share what's working, ask what's not.</p>
+            <div class="community-interface">
+                <div class="community-post-form">
+                    <div class="post-avatar">👨‍🌾</div>
+                    <div class="post-input-wrapper">
+                        <textarea id="communityPost" class="form-textarea" data-i18n-placeholder="community.postPlaceholder" placeholder="Share a tip, ask a question, or post an update..."></textarea>
+                        <div class="post-actions">
+                            <div class="post-tags">
+                                <button class="tag-btn active" data-tag="tip" data-i18n="community.tags.tip">💡 Tip</button>
+                                <button class="tag-btn" data-tag="question" data-i18n="community.tags.question">❓ Question</button>
+                                <button class="tag-btn" data-tag="success" data-i18n="community.tags.success">🎉 Success Story</button>
+                                <button class="tag-btn" data-tag="organic" data-i18n="community.tags.organic">🌿 Organic</button>
+                            </div>
+                            <button class="btn btn-primary" id="submitPost" data-i18n="community.post">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="community-feed" id="communityFeed">
+                    <!-- Posts loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nearby Sellers -->
+    <section id="sellers" class="section">
+        <div class="container">
+            <h2 class="section-title-left"><i class="fas fa-map-marker-alt"></i> <span data-i18n="nav.sellers">Nearby Sellers & Buyers</span></h2>
+            <p class="section-desc" data-i18n="sellers.subtitle">Find organic product sellers and buyers near your location.</p>
+            <div id="sellersLoading" class="sellers-loading"><div class="spinner"></div> <span data-i18n="sellers.loading">Locating nearby sellers...</span></div>
+            <div class="sellers-split">
+                <div id="sellersResult" class="sellers-result"></div>
+                <div id="map" class="map-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div id="chatbotIcon" class="chatbot-icon">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div id="chatbotBox" class="chatbot-box">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <i class="fas fa-robot"></i>
+                <div>
+                    <h4>FarmGuru AI</h4>
+                    <span data-i18n="chatbot.status">Online</span>
+                </div>
+            </div>
+            <button id="chatbotClose" class="chatbot-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chat-message bot">
+                <p data-i18n="chatbot.welcome">Hello! I'm FarmGuru AI. Ask me anything about farming, crops, weather, or agriculture practices.</p>
+            </div>
+        </div>
+        <form id="chatbotForm" class="chatbot-input">
+            <input type="text" id="chatbotInput" data-i18n-placeholder="chatbot.placeholder" placeholder="Ask about farming..." required>
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🌾</span>
+                        <span class="logo-text">FarmGuru</span>
+                    </div>
+                    <p data-i18n="footer.about">Empowering farmers with AI-driven insights and sustainable organic farming solutions for a greener future.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+                    <ul>
+                        <li><a href="#weather" data-i18n="nav.weather">Weather</a></li>
+                        <li><a href="#crops" data-i18n="nav.crops">Crops</a></li>
+                        <li><a href="#market" data-i18n="nav.market">Market</a></li>
+                        <li><a href="#community" data-i18n="nav.community">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer.resources">Resources</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footer.organicGuide">Organic Farming Guide</a></li>
+                        <li><a href="#" data-i18n="footer.govSchemes">Government Schemes</a></li>
+                        <li><a href="#" data-i18n="footer.training">Training Programs</a></li>
+                        <li><a href="#" data-i18n="footer.faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-i18n="footer.contact">Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> support@farmguru.in</p>
+                    <p><i class="fas fa-phone"></i> +91 1800 200 3000</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 OrganicHub. <span data-i18n="footer.rights">All Rights Reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="i18n.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
